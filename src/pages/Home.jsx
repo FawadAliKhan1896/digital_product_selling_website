@@ -1,0 +1,32 @@
+import React, { useState } from 'react'
+import Nav from '../components/Nav'
+import Hero from '../components/Hero'
+import TrustedBy from '../components/TrustedBy'
+import Services from '../components/Services'
+import Works from '../components/Works'
+import Team from '../components/Team'
+import GitHub from '../components/GitHub'
+import Contact from '../components/Contact'
+import Footer from '../components/Footer'
+import {Toaster} from 'react-hot-toast'
+
+const Home = () => {
+  const [theme, setTheme] = useState(localStorage.getItem('theme')
+  ? localStorage.getItem('theme') : 'light')
+  return (
+    <div className='dark:bg-black relative'>
+      <Toaster/>
+      <Nav theme={theme} setTheme={setTheme}/>
+      <Hero/>
+      <TrustedBy/>
+      <Services/>
+      <Works/>
+      <Team/>
+      <GitHub/>
+      <Contact/>
+      <Footer theme={theme}/>
+    </div>
+  )
+}
+
+export default Home
