@@ -5,7 +5,7 @@ const Nav = ({theme, setTheme}) => {
     const [sidebar, setSidebar] = useState(false)
   return (
     <nav className='flex items-center justify-between px-4
-    sm:px-12 lg:px-24 xl:px-40 py-4 sticky top-0 z-10 
+    sm:px-12 lg:px-24 xl:px-40 py-4 sticky top-0 z-20 
     backdrop-blur-lg font-medium bg-white/50 dark:bg-gray-900/70'>
         
         <img src={theme === 'dark' ? assets.logo_dark : assets.logo} 
