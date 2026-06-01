@@ -139,7 +139,7 @@ const ProductDetails = ({ theme, setTheme, products }) => {
       <Nav theme={theme} setTheme={setTheme} />
 
       {/* Main Container */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-12 lg:px-24 xl:px-40 py-16">
+      <main className=" mx-auto px-4 sm:px-12 lg:px-24 xl:px-40 py-16">
         
         {/* Back Link */}
         <div className="mb-10">
@@ -336,10 +336,8 @@ const ProductDetails = ({ theme, setTheme, products }) => {
       {/* Slide-In Overlay/Modal for Interactive Checkout Mockup */}
       {showCheckout && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-md transition-all duration-300">
-          
-          {/* Modal Box */}
-          <div className="relative w-full max-w-lg bg-white dark:bg-gray-950 rounded-3xl shadow-2xl overflow-hidden border border-gray-200/50 dark:border-gray-800/80 animate-scale-up">
-            
+          <div className="relative w-full max-w-4xl bg-white dark:bg-gray-950 rounded-3xl shadow-2xl overflow-hidden border border-gray-200/50 dark:border-gray-800/80 animate-scale-up">
+
             {/* Modal Close Button */}
             <button 
               onClick={() => setShowCheckout(false)}
@@ -348,88 +346,104 @@ const ProductDetails = ({ theme, setTheme, products }) => {
               <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
             </button>
 
-            {/* Modal Body */}
-            <div className="p-8">
-              {!isSuccess ? (
-                <form onSubmit={handleCheckoutSubmit} className="space-y-6">
-                  <div className="space-y-2">
-                    <span className="text-[10px] font-bold text-primary uppercase tracking-widest block">Checkout Portal</span>
-                    <h3 className="text-2xl font-bold text-gray-900 dark:text-white">Subscribe Now</h3>
-                    <p className="text-xs text-gray-400">Subscribe to <strong className="text-gray-700 dark:text-gray-200">{product.title}</strong> under the <span className="text-primary font-semibold uppercase">{billingCycle}</span> plan.</p>
+            <div className="grid grid-cols-1 md:grid-cols-2">
+              {/* Left: Product summary */}
+              <aside className="p-8 bg-gradient-to-b from-white to-gray-50 dark:from-gray-900/60 dark:to-gray-950 flex flex-col gap-6">
+                <div className="flex items-start gap-4">
+                  <img src={product.image} alt={product.title} className="w-28 h-20 object-cover rounded-xl shadow-sm" />
+                  <div>
+                    <h4 className="text-lg font-bold text-gray-900 dark:text-white">{product.title}</h4>
+                    <div className="flex items-center gap-2 text-xs text-gray-500 mt-1">
+                      <span className="font-bold text-yellow-400">{product.rating}</span>
+                      <span className="text-gray-300">|</span>
+                      <span>{product.category}</span>
+                    </div>
                   </div>
+                </div>
 
-                  {/* Dynamic Virtual Credit Card Graphic */}
-                  <div className="relative w-full max-w-[340px] h-[200px] mx-auto rounded-2xl p-6 text-white overflow-hidden shadow-2xl bg-gradient-to-br from-[#5044E5] via-[#4d8cea] to-indigo-800 transition-all duration-500 transform hover:scale-[1.03]">
-                    {/* Glassmorphic overlay */}
-                    <div className="absolute inset-0 bg-white/5 backdrop-blur-[1px]"></div>
-                    
-                    {/* Content */}
-                    <div className="relative z-10 h-full flex flex-col justify-between">
-                      {/* Top Row: Chip & Logo */}
-                      <div className="flex justify-between items-center">
-                        {/* Golden Chip */}
-                        <div className="w-10 h-8 bg-gradient-to-br from-yellow-300 to-yellow-600 rounded-md opacity-80 flex items-center justify-center shadow-inner">
-                          <div className="w-8 h-6 border border-yellow-700/20 rounded"></div>
+                <div className="rounded-2xl p-4 border border-gray-100 dark:border-gray-800 bg-white dark:bg-gray-900/60">
+                  <div className="flex items-baseline gap-2">
+                    <span className="text-3xl font-extrabold text-gray-900 dark:text-white">${displayPrice}</span>
+                    <span className="text-sm text-gray-400">/ month</span>
+                  </div>
+                  {billingCycle === 'yearly' && (
+                    <div className="text-xs text-green-500 font-bold mt-1">Billed annually (${displayPrice * 12}/year)</div>
+                  )}
+                </div>
+
+                <div>
+                  <h5 className="text-sm font-bold text-gray-900 dark:text-white mb-2">Included</h5>
+                  <ul className="text-sm text-gray-500 dark:text-gray-400 space-y-2">
+                    {product.benefits.slice(0, 4).map((b, i) => (
+                      <li key={i} className="flex items-start gap-2">
+                        <span className="w-6 h-6 bg-primary/10 text-primary rounded-full flex items-center justify-center text-xs">✓</span>
+                        <span>{b}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div className="mt-auto text-xs text-gray-400">
+                  <p>Secure checkout • 256-bit encryption • PCI compliant</p>
+                </div>
+              </aside>
+
+              {/* Right: Checkout Form */}
+              <section className="p-8">
+                {!isSuccess ? (
+                  <form onSubmit={handleCheckoutSubmit} className="space-y-6">
+                    <div>
+                      <span className="text-[10px] font-bold text-primary uppercase tracking-widest block">Checkout</span>
+                      <h3 className="text-2xl font-bold text-gray-900 dark:text-white">Complete your subscription</h3>
+                      <p className="text-xs text-gray-400 mt-1">You're subscribing to <strong className="text-gray-700 dark:text-gray-200">{product.title}</strong>. Secure payment below.</p>
+                    </div>
+
+                    {/* Compact Virtual Card */}
+                    <div className="relative w-full h-36 rounded-2xl p-4 text-white overflow-hidden shadow-lg bg-gradient-to-br from-[#5044E5] via-[#4d8cea] to-indigo-800">
+                      <div className="absolute inset-0 bg-white/5 backdrop-blur-[1px]"></div>
+                      <div className="relative z-10 h-full flex flex-col justify-between">
+                        <div className="flex justify-between items-center">
+                          <div className="w-8 h-6 bg-yellow-300 rounded-md"></div>
+                          <span className="text-[10px] font-extrabold opacity-80">SECURE</span>
                         </div>
-                        {/* Secure brand label */}
-                        <span className="text-[10px] font-extrabold tracking-widest italic opacity-80">SECURE CARD</span>
-                      </div>
-
-                      {/* Card Number */}
-                      <div className="text-lg font-semibold tracking-[3px] font-mono text-center my-4 opacity-90">
-                        {cardNumber || '•••• •••• •••• ••••'}
-                      </div>
-
-                      {/* Bottom Row: Holder & Expiry */}
-                      <div className="flex justify-between items-end text-xs">
-                        <div className="space-y-1">
-                          <span className="text-[9px] uppercase tracking-wider opacity-60 block">Cardholder</span>
-                          <span className="font-semibold tracking-wide uppercase block truncate max-w-[180px]">
-                            {cardName || 'YOUR NAME'}
-                          </span>
-                        </div>
-                        <div className="space-y-1 text-right">
-                          <span className="text-[9px] uppercase tracking-wider opacity-60 block">Expires</span>
-                          <span className="font-semibold tracking-wide block">
-                            {cardExpiry || 'MM/YY'}
-                          </span>
+                        <div className="font-mono text-sm tracking-widest">{cardNumber || '•••• •••• •••• ••••'}</div>
+                        <div className="flex justify-between items-end text-xs">
+                          <div>
+                            <div className="text-[9px] uppercase opacity-60">Cardholder</div>
+                            <div className="font-semibold uppercase">{cardName || 'YOUR NAME'}</div>
+                          </div>
+                          <div>
+                            <div className="text-[9px] uppercase opacity-60">Expires</div>
+                            <div className="font-semibold">{cardExpiry || 'MM/YY'}</div>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
 
-                  {/* Summary Block */}
-                  <div className="p-4 rounded-2xl bg-gray-50 dark:bg-gray-900 border border-gray-100 dark:border-gray-800 flex justify-between items-center text-sm font-semibold">
-                    <span className="text-gray-400">Total Billed:</span>
-                    <span className="text-lg font-bold text-gray-900 dark:text-white">
-                      ${displayPrice * (billingCycle === 'yearly' ? 12 : 1)}{billingCycle === 'yearly' && ' / year'}
-                    </span>
-                  </div>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div className="space-y-1">
+                        <label className="text-[10px] uppercase font-bold text-gray-400 block">Cardholder Name</label>
+                        <input 
+                          type="text" 
+                          required
+                          placeholder="John Doe"
+                          value={cardName}
+                          onChange={(e) => setCardName(e.target.value)}
+                          className="w-full p-3 text-sm border border-gray-200 dark:border-gray-800 bg-transparent rounded-xl outline-none focus:border-primary transition-all dark:text-white"
+                        />
+                      </div>
 
-                  {/* Payment Fields */}
-                  <div className="space-y-4">
-                    <div className="space-y-1">
-                      <label className="text-[10px] uppercase font-bold text-gray-400 block">Cardholder Name</label>
-                      <input 
-                        type="text" 
-                        required
-                        placeholder="John Doe"
-                        value={cardName}
-                        onChange={(e) => setCardName(e.target.value)}
-                        className="w-full p-3 text-sm border border-gray-200 dark:border-gray-800 bg-transparent rounded-xl outline-none focus:border-primary transition-all dark:text-white"
-                      />
-                    </div>
-
-                    <div className="space-y-1">
-                      <label className="text-[10px] uppercase font-bold text-gray-400 block">Card Number</label>
-                      <input 
-                        type="text" 
-                        required
-                        placeholder="0000 0000 0000 0000"
-                        value={cardNumber}
-                        onChange={handleCardNumberChange}
-                        className="w-full p-3 text-sm border border-gray-200 dark:border-gray-800 bg-transparent rounded-xl outline-none focus:border-primary transition-all dark:text-white"
-                      />
+                      <div className="space-y-1">
+                        <label className="text-[10px] uppercase font-bold text-gray-400 block">Card Number</label>
+                        <input 
+                          type="text" 
+                          required
+                          placeholder="0000 0000 0000 0000"
+                          value={cardNumber}
+                          onChange={handleCardNumberChange}
+                          className="w-full p-3 text-sm border border-gray-200 dark:border-gray-800 bg-transparent rounded-xl outline-none focus:border-primary transition-all dark:text-white"
+                        />
+                      </div>
                     </div>
 
                     <div className="grid grid-cols-2 gap-4">
@@ -458,38 +472,41 @@ const ProductDetails = ({ theme, setTheme, products }) => {
                         />
                       </div>
                     </div>
-                  </div>
 
-                  {/* Submit Button */}
-                  <button 
-                    type="submit"
-                    disabled={isSubmitting}
-                    className="w-full py-4 bg-primary text-white font-semibold rounded-full shadow-lg hover:shadow-primary/30 hover:scale-102 active:scale-98 transition-all flex items-center justify-center gap-2 cursor-pointer disabled:bg-primary/50"
-                  >
-                    {isSubmitting ? (
-                      <>
+                    <div className="flex items-center justify-between">
+                      <div className="text-sm text-gray-500">Total:</div>
+                      <div className="text-lg font-bold">${displayPrice * (billingCycle === 'yearly' ? 12 : 1)}{billingCycle === 'yearly' && ' / year'}</div>
+                    </div>
+
+                    <button 
+                      type="submit"
+                      disabled={isSubmitting}
+                      className="w-full py-3 bg-primary text-white font-semibold rounded-xl shadow-lg hover:shadow-primary/30 transition-all flex items-center justify-center gap-2 cursor-pointer disabled:bg-primary/50"
+                    >
+                      {isSubmitting ? (
                         <svg className="animate-spin h-5 w-5 text-white" fill="none" viewBox="0 0 24 24">
                           <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                           <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                         </svg>
-                        Authorizing...
-                      </>
-                    ) : (
-                      `Confirm & Pay $${displayPrice * (billingCycle === 'yearly' ? 12 : 1)}`
-                    )}
-                  </button>
-                </form>
-              ) : (
-                <div className="py-12 flex flex-col items-center justify-center text-center space-y-4 animate-scale-up">
-                  <div className="w-20 h-20 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center text-green-500 shadow-inner">
-                    <svg className="w-10 h-10" fill="none" stroke="currentColor" strokeWidth="3" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7"/></svg>
+                      ) : (
+                        `Confirm & Pay $${displayPrice * (billingCycle === 'yearly' ? 12 : 1)}`
+                      )}
+                    </button>
+
+                    <p className="text-xs text-gray-400 text-center">By completing purchase you agree to our terms and privacy policy.</p>
+                  </form>
+                ) : (
+                  <div className="py-12 flex flex-col items-center justify-center text-center space-y-4 animate-scale-up">
+                    <div className="w-20 h-20 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center text-green-500 shadow-inner">
+                      <svg className="w-10 h-10" fill="none" stroke="currentColor" strokeWidth="3" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7"/></svg>
+                    </div>
+                    <h3 className="text-2xl font-bold text-gray-900 dark:text-white">Subscription Active!</h3>
+                    <p className="text-sm text-gray-400 max-w-xs">
+                      Your license is active. Check your email inbox for setup credentials and invoices.
+                    </p>
                   </div>
-                  <h3 className="text-2xl font-bold text-gray-900 dark:text-white">Subscription Active!</h3>
-                  <p className="text-sm text-gray-400 max-w-xs">
-                    Your license is active. Check your email inbox for setup credentials and invoices.
-                  </p>
-                </div>
-              )}
+                )}
+              </section>
             </div>
 
           </div>
