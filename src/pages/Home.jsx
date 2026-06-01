@@ -12,9 +12,7 @@ import Contact from '../components/Contact'
 import Footer from '../components/Footer'
 import { Toaster } from 'react-hot-toast'
 
-const Home = () => {
-  const [theme, setTheme] = useState(localStorage.getItem('theme')
-    ? localStorage.getItem('theme') : 'light')
+const Home = ({ theme, setTheme, products }) => {
   return (
     <div className='dark:bg-black relative'>
       <Toaster />
@@ -22,7 +20,7 @@ const Home = () => {
       <Hero />
       <TrustedBy />
       <Services />
-      <Works />
+      <Works products={products} />
       <Testimonials />
       <Team />
       <FAQ />

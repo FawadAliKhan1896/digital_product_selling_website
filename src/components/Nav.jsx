@@ -1,6 +1,9 @@
 import React, { useState } from 'react'
 import assets from '../assets/assets'
 import ThemeToggle from './ThemeToggle'
+import Logo from './Logo'
+import { Link } from 'react-router-dom'
+
 const Nav = ({theme, setTheme}) => {
     const [sidebar, setSidebar] = useState(false)
   return (
@@ -8,8 +11,7 @@ const Nav = ({theme, setTheme}) => {
     sm:px-12 lg:px-24 xl:px-40 py-4 sticky top-0 z-20 
     backdrop-blur-lg font-medium bg-white/50 dark:bg-gray-900/70'>
         
-        <img src={theme === 'dark' ? assets.logo_dark : assets.logo} 
-        alt="logo" className='w-32 sm:w-40'/>
+        <Logo theme={theme} className='w-32 sm:w-40'/>
 
         <div className={`text-gray-700 dark:text-white sm:text-sm ${
             !sidebar ? 'max-sm:max-w-0 max-sm:overflow-hidden':'max-sm:w-60 max-sm:pl-10'} 
@@ -19,11 +21,12 @@ const Nav = ({theme, setTheme}) => {
 
             <img src={assets.close_icon} alt="" className='sm:hidden
                 w-5 absolute top-4 right-4' onClick={()=> setSidebar(false)}/>
-            <a href="#" onClick={()=>setSidebar(false)} className='sm:hover:border-b'>Home</a>
-            <a href="#services" onClick={()=>setSidebar(false)} className='sm:hover:border-b'>Services</a>
-            <a href="#our-work" onClick={()=>setSidebar(false)} className='sm:hover:border-b'>Our Works</a>
-            <a href="#github" onClick={()=>setSidebar(false)} className='sm:hover:border-b'>GitHub</a>
-            <a href="#contact-us" onClick={()=>setSidebar(false)} className='sm:hover:border-b'>Contact Us</a>
+            <a href="/" onClick={()=>setSidebar(false)} className='sm:hover:border-b'>Home</a>
+            <a href="/#services" onClick={()=>setSidebar(false)} className='sm:hover:border-b'>Services</a>
+            <a href="/#our-work" onClick={()=>setSidebar(false)} className='sm:hover:border-b'>Our Works</a>
+            <a href="/#github" onClick={()=>setSidebar(false)} className='sm:hover:border-b'>GitHub</a>
+            <a href="/#contact-us" onClick={()=>setSidebar(false)} className='sm:hover:border-b'>Contact Us</a>
+            <Link to="/admin" onClick={()=>setSidebar(false)} className='sm:hover:border-b text-primary dark:text-blue-400 font-semibold'>Admin</Link>
         </div>
 
         <div className='flex items-center gap-2 sm:gap-4'>

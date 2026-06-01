@@ -13,7 +13,7 @@ const Hero = () => {
       </div>
 
       <h1 className='text-4xl sm:text-5xl md:text-6xl xl:text-7xl font-medium
-        xl:leading-[95px] max-w-5xl'>Elevating your business with <span className='bg-gradient-to-r from-[#5044e5] to-[#4d8cea] bg-clip-text text-transparent'> AssanTech</span> digital excellence.
+        xl:leading-[95px] max-w-5xl'>Elevating your business with <span className='bg-gradient-to-r from-[#5044e5] to-[#4d8cea] bg-clip-text text-transparent'> FuwebSolutions</span> digital excellence.
       </h1>
 
       <p className='text-sm sm:text-lg font-medium text-gray-500 dark:text-white/75

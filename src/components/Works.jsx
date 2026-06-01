@@ -1,63 +1,9 @@
 import React from 'react'
 import Title from './Title'
 import assets from '../assets/assets'
-const Works = () => {
-    const worksData = [
-        {
-            title: 'EduSphere Pro',
-            description: 'Advanced cloud-based school management platform with real-time student analytics and parent portals.',
-            image: 'https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=800',
-            rating: 4.9,
-            price: 99,
-            category: 'Education SaaS',
-            tech: ['LMS', 'Analytics']
-        },
-        {
-            title: 'EstateFlow Cloud',
-            description: 'Enterprise real estate management system with virtual tour integration and automated lead tracking.',
-            image: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?q=80&w=800',
-            rating: 4.8,
-            price: 149,
-            category: 'Real Estate SaaS',
-            tech: ['CRM', '3D Tours']
-        },
-        {
-            title: 'AutoDrive ERP',
-            description: 'Scalable cloud ERP for automotive businesses, featuring inventory sync and automated billing.',
-            image: 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=800',
-            rating: 4.7,
-            price: 129,
-            category: 'Automotive SaaS',
-            tech: ['ERP', 'POS']
-        },
-        {
-            title: 'HealthSync Web',
-            description: 'Secure, HIPAA-compliant telemedicine platform with encrypted video calls and patient history.',
-            image: 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=800',
-            rating: 4.9,
-            price: 199,
-            category: 'Healthcare SaaS',
-            tech: ['Telehealth', 'Security']
-        },
-        {
-            title: 'FinTrack Enterprise',
-            description: 'Comprehensive financial accounting software for global enterprises with multi-tax support.',
-            image: 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?q=80&w=800',
-            rating: 4.8,
-            price: 159,
-            category: 'Finance SaaS',
-            tech: ['Accounting', 'Audit']
-        },
-        {
-            title: 'ShopStream POS',
-            description: 'Cloud-based Point of Sale system with multi-outlet support and real-time inventory tracking.',
-            image: 'https://images.unsplash.com/photo-1556742044-3c52d6e88c62?q=80&w=800',
-            rating: 4.6,
-            price: 89,
-            category: 'Retail SaaS',
-            tech: ['Inventory', 'POS']
-        },
-    ]
+import { Link } from 'react-router-dom'
+
+const Works = ({ products }) => {
   return (
     <div id='our-work' className='flex flex-col items-center gap-8 px-4 sm:px-12 lg:px-24
     xl:px-40 pt-30 text-gray-700 dark:text-white'>
@@ -65,7 +11,7 @@ const Works = () => {
 
         <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 w-full max-w-7xl gap-10'>
             {
-                worksData.map((work,index)=>(
+                products.map((work,index)=>(
                     <div key={index} className='group relative flex flex-col bg-white dark:bg-gray-900/50 rounded-3xl border border-gray-100 dark:border-gray-800 overflow-hidden hover:shadow-2xl hover:shadow-primary/10 transition-all duration-500 hover:-translate-y-2'>
                         {/* Image Container */}
                         <div className='relative h-60 overflow-hidden'>
@@ -121,9 +67,9 @@ const Works = () => {
                                     <button className='flex-1 py-2.5 border border-gray-200 dark:border-gray-700 text-xs font-bold rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors'>
                                         Book a Demo
                                     </button>
-                                    <button className='flex-1 py-2.5 bg-primary text-white text-xs font-bold rounded-xl hover:shadow-lg hover:shadow-primary/30 transition-all'>
+                                    <Link to={`/product/${work.id}`} className='flex-1 py-2.5 bg-primary text-white text-xs font-bold rounded-xl hover:shadow-lg hover:shadow-primary/30 transition-all text-center flex items-center justify-center'>
                                         Get Started
-                                    </button>
+                                    </Link>
                                 </div>
                             </div>
                         </div>

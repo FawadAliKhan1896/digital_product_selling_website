@@ -13,7 +13,7 @@ const GitHub = () => {
                     <h3 className='text-2xl sm:text-3xl font-bold'>Join our Open Source Community</h3>
                     <p className='text-gray-400 text-lg'>Help us build the future of business intelligence and automation. Our code is open, transparent, and waiting for your expertise.</p>
                     <div className='flex gap-4 pt-4'>
-                        <a href="https://github.com/AssanTech" target='_blank' rel='noreferrer' className='bg-white text-black px-8 py-3 rounded-full font-bold hover:bg-gray-200 transition-all'>
+                        <a href="https://github.com/FuwebSolutions" target='_blank' rel='noreferrer' className='bg-white text-black px-8 py-3 rounded-full font-bold hover:bg-gray-200 transition-all'>
                             View GitHub
                         </a>
                         <button className='border border-white/20 px-8 py-3 rounded-full font-bold hover:bg-white/10 transition-all'>
